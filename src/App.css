@@ -1,0 +1,138 @@
+/* Variables CSS del tema */
+:root {
+  /* COLORES PRINCIPALES */
+  --nova-primary: #252729;      
+  --nova-accent: #4E75FF;       
+  --nova-white: #FFFFFF;        
+  --nova-orange: #ff882c;
+  
+  /* COLORES NEUTROS */
+  --nova-black: #0F172A;      
+  --nova-gray-900: #1E293B;
+  --nova-gray-800: #334155;
+  --nova-gray-700: #475569;
+  --nova-gray-400: #94A3B8;
+  
+  /* SOMBRAS */
+  --nova-shadow-primary: 0 4px 20px rgba(10, 22, 83, 0.3);
+  --nova-shadow-accent: 0 4px 20px rgba(78, 117, 255, 0.3);
+  --nova-shadow-glow: 0 0 30px rgba(78, 117, 255, 0.4);
+  
+  /* TRANSICIONES */
+  --nova-transition: all 0.3s ease;
+  --nova-transition-fast: all 0.2s ease;
+}
+
+/* Clases utilitarias de colores */
+.nova-bg-primary {
+  background-color: var(--nova-primary);
+}
+
+.nova-bg-accent {
+  background-color: var(--nova-accent);
+}
+
+.nova-bg-orange {
+  background-color: var(--nova-orange);
+}
+
+.nova-text-primary {
+  color: var(--nova-primary);
+}
+
+.nova-text-accent {
+  color: var(--nova-accent);
+}
+
+.nova-text-orange {
+  color: var(--nova-orange);
+}
+
+.nova-text-white {
+  color: var(--nova-white);
+}
+
+.nova-border-accent {
+  border-color: var(--nova-accent);
+}
+
+/* Clases de efectos */
+.nova-hover-subtle {
+  transition: var(--nova-transition);
+}
+
+.nova-hover-subtle:hover {
+  background-color: var(--nova-gray-700);
+}
+
+.nova-button-primary {
+  background: linear-gradient(135deg, var(--nova-accent), var(--nova-primary));
+  color: var(--nova-white);
+  transition: var(--nova-transition);
+}
+
+.nova-button-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--nova-shadow-glow);
+}
+
+.nova-border-glow {
+  border: 1px solid var(--nova-accent);
+  box-shadow: var(--nova-shadow-accent);
+}
+
+/* Clases para componentes específicos */
+/* Paginador */
+.pagination-button-inactive {
+  background-color: #ffffff;
+  color: #6b7280;
+  border-color: #e5e7eb;
+  transition: var(--nova-transition-fast);
+}
+
+.pagination-button-inactive:hover {
+  background-color: var(--nova-primary);
+  color: var(--nova-white);
+  border-color: var(--nova-primary);
+}
+
+.pagination-button-active {
+  background-color: var(--nova-primary);
+  color: var(--nova-white);
+  border-color: var(--nova-primary);
+}
+
+.pagination-button-disabled {
+  background-color: #f3f4f6; 
+  color: #d1d5db; 
+  border-color: #e5e7eb;
+  cursor: not-allowed;
+}
+
+.pagination-button-disabled:hover {
+  background-color: #f3f4f6;
+  color: #d1d5db;
+  border-color: #e5e7eb;
+}
+
+/* Toast personalizado */
+.custom-toast {
+  cursor: pointer;
+}
+
+.custom-toast > div[role="status"] {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+@media (max-width: 768px) {
+  .custom-toast {
+    touch-action: pan-y;
+    user-select: none;
+  }
+}
+
+.custom-toast:active {
+  transform: scale(0.98);
+}
