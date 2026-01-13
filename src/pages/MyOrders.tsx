@@ -1,5 +1,6 @@
 import Pagination from '../components/Common/Pagination';
 import NavBar from '../components/Common/NavBar';
+import Spinner from '../components/Common/Spinner';
 import EmptyOrders from '../components/Orders/EmptyOrders';
 import OrderCard from '../components/Orders/OrderCard';
 import { useMyOrders } from '../hooks/useMyOrders';
@@ -31,8 +32,8 @@ const MyOrders = () => {
 
         {/* Loading */}
         {loading && (
-          <div className="flex justify-center items-center py-12">
-            <div className="animate-spin rounded-full h-8 w-8 sm:h-12 sm:w-12 border-b-2 border-indigo-600"></div>
+          <div className="flex justify-center items-center py-60">
+            <Spinner size="md" />
           </div>
         )}
 
