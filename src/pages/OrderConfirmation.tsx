@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { orderService } from '../services/orderService';
 import NavBar from '../components/Common/NavBar';
 import { Footer } from '../components/Common/Footer';
+import Spinner from '../components/Common/Spinner';
 import { useOrderConfirmation } from '../hooks/useOrderConfirmation';
 import { getTimelineSteps } from '../utils/orderTimeline';
 import {
@@ -64,8 +65,8 @@ const OrderConfirmation = () => {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+            <div className="min-h-screen bg-white flex items-center justify-center">
+                <Spinner size="md" />
             </div>
         );
     }

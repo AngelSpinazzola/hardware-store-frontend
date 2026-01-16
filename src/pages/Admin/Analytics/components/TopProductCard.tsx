@@ -14,8 +14,7 @@ const cardConfig = {
         badge: 'ORO',
         badgeBg: 'bg-yellow-100',
         badgeColor: 'text-yellow-700',
-        rankColor: 'text-yellow-600',
-        shadow: 'shadow-[0_4px_20px_-4px_rgba(234,179,8,0.4)]'
+        rankColor: 'text-yellow-600'
     },
     2: {
         icon: FaMedal,
@@ -24,8 +23,7 @@ const cardConfig = {
         badge: 'PLATA',
         badgeBg: 'bg-gray-100',
         badgeColor: 'text-gray-700',
-        rankColor: 'text-gray-600',
-        shadow: 'shadow-[0_4px_20px_-4px_rgba(156,163,175,0.4)]'
+        rankColor: 'text-gray-600'
     },
     3: {
         icon: FaAward,
@@ -34,8 +32,7 @@ const cardConfig = {
         badge: 'BRONCE',
         badgeBg: 'bg-orange-100',
         badgeColor: 'text-orange-700',
-        rankColor: 'text-orange-600',
-        shadow: 'shadow-[0_4px_20px_-4px_rgba(249,115,22,0.4)]'
+        rankColor: 'text-orange-600'
     }
 };
 
@@ -44,7 +41,7 @@ export default function TopProductCard({ rank, productName, totalSold }: TopProd
     const Icon = config.icon;
 
     return (
-        <div className={`bg-white rounded-lg p-4 sm:p-6 ${config.shadow} h-full min-h-[160px] flex flex-col`}>
+        <div className={`bg-white rounded-lg p-4 sm:p-6 shadow-md h-full min-h-[160px] flex flex-col`}>
             <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-3">
                     <div className={`p-2 rounded-full ${config.iconBg}`}>
