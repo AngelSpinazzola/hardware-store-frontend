@@ -73,7 +73,7 @@ export default function AdminOrderDetail() {
           {/* Actions */}
           <OrderActions
             orderId={order.id}
-            customerEmail={order.customerEmail}
+            customerEmail={order.customerEmail || ''}
             onPrint={handlePrint}
           />
         </div>

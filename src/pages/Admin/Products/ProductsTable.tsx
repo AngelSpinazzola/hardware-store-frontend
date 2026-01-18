@@ -34,7 +34,7 @@ export default function ProductsTable({ products, categories, onEdit, onDelete, 
         return matchesSearch && matchesCategory && matchesStatus && matchesStock;
     });
 
-    const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>, productId: number) => {
+    const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>, _productId?: number) => {
         e.currentTarget.src = 'https://via.placeholder.com/150?text=Sin+Imagen';
     };
 

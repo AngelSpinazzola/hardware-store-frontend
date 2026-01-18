@@ -124,17 +124,10 @@ export const getCacheStats = (): { size: number; keys: string[] } => {
  * Pre-calcula subcategorías para una lista de productos (útil para optimización inicial)
  */
 export const precalculateSubcategories = (products: ProductForCategory[]): void => {
-    const startTime = performance.now();
-    let calculated = 0;
-    
     products.forEach(product => {
-        const cacheKey = `${product.name}-${product.category}-${product.platform || ''}`;
+        const cacheKey = `${product.name}-${product.categoryName}-${product.platform || ''}`;
         if (!subcategoryCache.has(cacheKey)) {
-            // Pasar el producto completo para aprovechar el campo platform
-            detectSubcategory(product, product.category);
-            calculated++;
+            detectSubcategory(product, product.categoryName);
         }
     });
-    
-    const endTime = performance.now();
 };

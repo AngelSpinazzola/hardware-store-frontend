@@ -51,7 +51,7 @@ const SubcategoryBrandFilter = ({
             const subcategory = detectSubcategory({
                 id: product.id,
                 name: product.name,
-                category: product.categoryName,
+                categoryName: product.categoryName,
                 brand: product.brand,
                 platform: product.platform
             }, selectedCategory);
@@ -87,7 +87,7 @@ const SubcategoryBrandFilter = ({
             const subcategory = detectSubcategory({
                 id: product.id,
                 name: product.name,
-                category: product.categoryName,
+                categoryName: product.categoryName,
                 brand: product.brand,
                 platform: product.platform
             }, selectedCategory);
@@ -98,7 +98,7 @@ const SubcategoryBrandFilter = ({
             const subcategory = detectSubcategory({
                 id: sampleProduct.id,
                 name: sampleProduct.name,
-                category: sampleProduct.categoryName,
+                categoryName: sampleProduct.categoryName,
                 brand: sampleProduct.brand,
                 platform: sampleProduct.platform
             }, selectedCategory);

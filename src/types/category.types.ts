@@ -8,7 +8,7 @@ export interface Category {
 export interface ProductForCategory {
   id: number;
   name: string;
-  category: string;
+  categoryName: string;
   brand?: string;
   platform?: string;
 }

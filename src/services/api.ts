@@ -70,7 +70,7 @@ api.interceptors.response.use(
 // Función para testear conectividad
 export const testApiConnection = async (): Promise<boolean> => {
   try {
-    const response = await api.get('/health');
+    await api.get('/health');
     return true;
   } catch (error) {
     console.error('API Connection failed:', (error as Error).message);

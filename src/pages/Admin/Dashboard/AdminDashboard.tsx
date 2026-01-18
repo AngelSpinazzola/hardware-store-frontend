@@ -21,7 +21,7 @@ interface Product {
     name: string;
     status: ProductStatus;
     stock: number;
-    category: string;
+    categoryName: string;
     brand?: string;
     price: number;
     createdAt?: string;

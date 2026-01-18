@@ -35,7 +35,7 @@ const CategoryBrandFilter = ({
                 const subcategory = detectSubcategory({
                     id: product.id,
                     name: product.name,
-                    category: product.categoryName,
+                    categoryName: product.categoryName,
                     brand: product.brand,
                     platform: product.platform
                 }, selectedCategory);

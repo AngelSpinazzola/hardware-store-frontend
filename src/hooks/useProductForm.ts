@@ -3,7 +3,6 @@ import { toast } from 'react-toastify';
 import { productService } from '@/services/productService';
 import { ProductDetail, CreateProductData, ProductStatus } from '@/types/product.types';
 import { useQueryClient } from '@tanstack/react-query';
-import { PLATFORM_REQUIRED_CATEGORIES } from '@/components/Forms/PlatformSelector';
 import type { FormImage } from './useProductFormData';
 
 interface FormData extends CreateProductData {

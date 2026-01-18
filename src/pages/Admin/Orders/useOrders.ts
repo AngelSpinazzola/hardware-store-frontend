@@ -91,7 +91,7 @@ const filterOrders = (
     result = result.filter(order =>
       order.id.toString().includes(term) ||
       order.customerName.toLowerCase().includes(term) ||
-      order.customerEmail.toLowerCase().includes(term) ||
+      (order.customerEmail && order.customerEmail.toLowerCase().includes(term)) ||
       (order.shippingCity && order.shippingCity.toLowerCase().includes(term)) ||
       (order.shippingProvince && order.shippingProvince.toLowerCase().includes(term))
     );
