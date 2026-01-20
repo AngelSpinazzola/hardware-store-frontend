@@ -46,17 +46,22 @@ const CartItem = ({ item, index, onIncrement, onDecrement, onRemove, onImageErro
                                     </Link>
                                 </h3>
                                 <p className="font-poppins text-gray-500 text-sm mb-2 sm:mb-3">
-                                    <span className="font-semibold text-gray-900 tabular-nums">${item.price.toLocaleString()}</span>
+                                    <span className="font-semibold text-gray-900 tabular-nums">
+                                        ${Math.floor(item.price).toLocaleString('es-AR')}
+                                        <span className="text-xs align-super">{(item.price % 1).toFixed(2).substring(2)}</span>
+                                    </span>
                                 </p>
                             </div>
                             <div className="sm:text-right">
-                                <p className="text-lg font-bold text-gray-900">
-                                    ${(item.price * item.quantity).toLocaleString()}
+                                <p className="text-lg font-semibold text-gray-900 tabular-nums">
+                                    ${Math.floor(item.price * item.quantity).toLocaleString('es-AR')}
+                                    <span className="text-sm font-medium text-gray-700 align-super">{((item.price * item.quantity) % 1).toFixed(2).substring(2)}</span>
                                 </p>
 
                                 {item.quantity > 1 && (
-                                    <p className="font-poppins text-sm text-gray-500 mt-1">
-                                        Por unidad ${item.price.toLocaleString()}
+                                    <p className="font-poppins text-sm text-gray-500 mt-1 tabular-nums">
+                                        Por unidad ${Math.floor(item.price).toLocaleString('es-AR')}
+                                        <span className="text-xs align-super">{(item.price % 1).toFixed(2).substring(2)}</span>
                                     </p>
                                 )}
                             </div>

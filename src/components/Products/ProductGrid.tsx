@@ -34,12 +34,12 @@ const ProductGrid = ({
         );
     };
 
-    const formatPrice = (price: number): string => {
-        return new Intl.NumberFormat("es-AR", {
-            style: "currency",
-            currency: "ARS",
-            maximumFractionDigits: 0,
-        }).format(price);
+    const formatPriceInteger = (price: number): string => {
+        return Math.floor(price).toLocaleString('es-AR');
+    };
+
+    const formatPriceDecimals = (price: number): string => {
+        return (price % 1).toFixed(2).substring(2);
     };
 
     const handleAddToCart = (
@@ -89,8 +89,9 @@ const ProductGrid = ({
 
                     <div className="flex-1 flex flex-col">
                         <div className="p-3 sm:p-6 pt-2 sm:pt-4 pb-0">
-                            <p className="text-xl font-medium text-blue-800 text-left mb-4">
-                                {formatPrice(product.price)}
+                            <p className="text-xl font-medium text-blue-800 text-left mb-4 tabular-nums">
+                                ${formatPriceInteger(product.price)}
+                                <span className="text-sm align-super">{formatPriceDecimals(product.price)}</span>
                             </p>
                             <h3
                                 className="text-sm font-normal leading-5 text-[var(--nova-primary)] hover:text-[var(--nova-accent)] transition-colors"
@@ -167,8 +168,9 @@ const ProductGrid = ({
                         </h3>
 
                         <div className="flex items-center justify-between">
-                            <span className="text-xl font-medium text-[var(--nova-primary)]">
-                                {formatPrice(product.price)}
+                            <span className="text-xl font-medium text-blue-800 tabular-nums">
+                                ${formatPriceInteger(product.price)}
+                                <span className="text-sm align-super">{formatPriceDecimals(product.price)}</span>
                             </span>
                             {!isAdmin(user) && (
                                 <button

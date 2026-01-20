@@ -163,14 +163,10 @@ const ProductDetail = () => {
                                 </h2>
 
                                 <div className="flex items-baseline space-x-4">
-                                    <span className="text-3xl lg:text-4xl bg-clip-text text-blue-800">
-                                        ${product.price.toLocaleString('es-AR', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                                    <span className="text-3xl lg:text-4xl text-blue-800 tabular-nums">
+                                        ${Math.floor(product.price).toLocaleString('es-AR')}
+                                        <span className="text-lg text-blue-800 align-super">{(product.price % 1).toFixed(2).substring(2)}</span>
                                     </span>
-                                    {(product as any).originalPrice && (product as any).originalPrice > product.price && (
-                                        <span className="text-lg text-gray-500 line-through">
-                                            ${(product as any).originalPrice.toLocaleString('es-AR', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
-                                        </span>
-                                    )}
                                 </div>
                             </div>
 

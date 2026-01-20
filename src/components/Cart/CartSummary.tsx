@@ -21,14 +21,16 @@ const CartSummary = ({ itemsCount, total, isAuthenticated, hasItems, onCheckout 
                         {itemsCount} {itemsCount === 1 ? 'artículo' : 'artículos'}
                     </p>
                     <p className="font-poppins font-semibold text-gray-900 tabular-nums">
-                        ${total.toLocaleString()}
+                        ${Math.floor(total).toLocaleString('es-AR')}
+                        <span className="text-xs text-gray-700 align-super">{(total % 1).toFixed(2).substring(2)}</span>
                     </p>
                 </div>
 
                 <div className="border-t border-gray-200 pt-4 flex items-center justify-between mb-8">
                     <dt className="font-poppins text-base font-medium text-gray-700">Total</dt>
-                    <dd className="font-poppins text-xl font-bold text-gray-900 tabular-nums">
-                        ${total.toLocaleString()}
+                    <dd className="font-poppins text-xl font-semibold text-gray-900 tabular-nums">
+                        ${Math.floor(total).toLocaleString('es-AR')}
+                        <span className="text-sm text-gray-700 font-medium align-super">{(total % 1).toFixed(2).substring(2)}</span>
                     </dd>
                 </div>
 
