@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { productService } from "../../../services/productService";
 import { orderService } from "../../../services/orderService";
 import AdminLayout from "../Layout/AdminLayout";
+import Spinner from "../../../components/Common/Spinner";
 import StatsCard from "./StatsCard";
 import ReactApexChart from "react-apexcharts";
 import type { ApexOptions } from "apexcharts";
@@ -288,13 +289,11 @@ export default function AdminDashboard() {
                 sidebarOpen={sidebarOpen}
                 setSidebarOpen={setSidebarOpen}
             >
-                <div className="flex items-center justify-center py-12">
-                    <div className="text-center">
-                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
-                        <p className="mt-4 text-gray-600">
-                            Cargando dashboard...
-                        </p>
-                    </div>
+                <div className="flex flex-col items-center justify-center py-12">
+                    <Spinner size="md" color="blue" />
+                    <p className="mt-4 text-gray-600">
+                        Cargando dashboard...
+                    </p>
                 </div>
             </AdminLayout>
         );
