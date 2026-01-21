@@ -39,7 +39,8 @@ export const productService = {
     // Campos básicos
     formData.append('Name', productData.name);
     formData.append('Description', productData.description || '');
-    formData.append('Price', productData.price.toString());
+    // Envía el precio con coma como separador decimal (formato es-AR para el backend)
+    formData.append('Price', productData.price.toFixed(2).replace('.', ','));
     formData.append('Stock', productData.stock.toString());
     if (productData.categoryId) {
       formData.append('CategoryId', productData.categoryId.toString());
@@ -83,7 +84,9 @@ export const productService = {
     formData.append('Name', productData.name || '');
     formData.append('Description', productData.description || '');
     if (productData.price !== undefined) {
-      formData.append('Price', productData.price.toString());
+      // Envía el precio con coma como separador decimal (formato es-AR para el backend)
+      const priceString = productData.price.toFixed(2).replace('.', ',');
+      formData.append('Price', priceString);
     }
     if (productData.stock !== undefined) {
       formData.append('Stock', productData.stock.toString());

@@ -118,6 +118,8 @@ export const useProductForm = (
             brand: isNewBrand ? newBrand : formData.brand
         };
 
+        console.log('Price being sent:', finalFormData.price, typeof finalFormData.price);
+
         if (!validateForm(isNewBrand, newBrand)) return;
 
         setLoading(true);
@@ -179,11 +181,23 @@ export const useProductForm = (
         return value?.toString() || '';
     };
 
+    const handlePriceChange = (value: number): void => {
+        setFormData(prev => ({
+            ...prev,
+            price: value
+        }));
+
+        if (errors.price) {
+            setErrors(prev => ({ ...prev, price: '' }));
+        }
+    };
+
     return {
         formData,
         loading,
         errors,
         handleInputChange,
+        handlePriceChange,
         handleSubmit,
         getInputValue,
     };

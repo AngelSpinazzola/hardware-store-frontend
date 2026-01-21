@@ -1,6 +1,7 @@
 import { ProductDetail } from '@/types/product.types';
 import ImageManager from '../Products/ImageManager';
 import FormInput from '@/components/Forms/FormInput';
+import PriceInput from '@/components/Forms/PriceInput';
 import CategorySelector from '@/components/Forms/CategorySelector';
 import BrandSelector from '@/components/Forms/BrandSelector';
 import PlatformSelector from '@/components/Forms/PlatformSelector';
@@ -23,6 +24,7 @@ const ProductForm = ({ product, onSuccess, onCancel }: ProductFormProps) => {
         loading,
         errors,
         handleInputChange,
+        handlePriceChange,
         handleSubmit,
         getInputValue,
     } = formLogic;
@@ -108,16 +110,12 @@ const ProductForm = ({ product, onSuccess, onCancel }: ProductFormProps) => {
                     error={errors.platform}
                 />
 
-                <FormInput
+                <PriceInput
                     label="Precio"
                     name="price"
-                    type="number"
-                    placeholder="0.00"
-                    min="0"
-                    step="0.01"
                     required
-                    value={getInputValue('price', 'number')}
-                    onChange={handleInputChange}
+                    value={form.price}
+                    onChange={handlePriceChange}
                     error={errors.price}
                 />
 
