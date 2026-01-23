@@ -85,7 +85,7 @@ const CartSummary = ({ itemsCount, total, isAuthenticated, hasItems, onCheckout 
 
                 <div className="mt-8 text-center">
                     <Link
-                        to="/"
+                        to="/products"
                         className="font-poppins inline-flex items-center hover:text-gray-700 font-medium transition-colors text-sm"
                     >
                         <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
