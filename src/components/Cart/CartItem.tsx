@@ -45,21 +45,21 @@ const CartItem = ({ item, index, onIncrement, onDecrement, onRemove, onImageErro
                                         {item.name}
                                     </Link>
                                 </h3>
-                                <p className="font-poppins text-gray-500 text-sm mb-2 sm:mb-3">
+                                {/* <p className="font-poppins text-gray-500 text-sm mb-2 sm:mb-3">
                                     <span className="font-semibold text-gray-900 tabular-nums">
                                         ${Math.floor(item.price).toLocaleString('es-AR')}
                                         <span className="text-xs align-super">{(item.price % 1).toFixed(2).substring(2)}</span>
                                     </span>
-                                </p>
+                                </p> */}
                             </div>
                             <div className="sm:text-right">
-                                <p className="text-lg font-semibold text-gray-900 tabular-nums">
+                                <p className="text-lg font-semibold text-blue-800 tabular-nums">
                                     ${Math.floor(item.price * item.quantity).toLocaleString('es-AR')}
-                                    <span className="text-sm font-medium text-gray-700 align-super">{((item.price * item.quantity) % 1).toFixed(2).substring(2)}</span>
+                                    <span className="text-sm font-medium text-blue-800 align-super">{((item.price * item.quantity) % 1).toFixed(2).substring(2)}</span>
                                 </p>
 
                                 {item.quantity > 1 && (
-                                    <p className="font-poppins text-sm text-gray-500 mt-1 tabular-nums">
+                                    <p className="font-poppins text-sm text-blue-800 mt-1 tabular-nums">
                                         Por unidad ${Math.floor(item.price).toLocaleString('es-AR')}
                                         <span className="text-xs align-super">{(item.price % 1).toFixed(2).substring(2)}</span>
                                     </p>
