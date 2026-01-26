@@ -6,10 +6,12 @@
   "scripts": {
     "dev": "vite",
     "dev:local": "vite --mode development",
-    "test": "vitest",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
     "test:api": "curl http://localhost:10000/api/health || echo 'API local no disponible en puerto 10000'",
+    "lint": "eslint src",
     "build": "vite build",
     "build:local": "vite build --mode development",
     "preview": "vite preview",
@@ -57,6 +59,7 @@
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.0",
     "typescript": "^5.9.2",
+    "typescript-eslint": "^8.53.1",
     "vite": "^7.0.4",
     "vitest": "^4.0.15"
   }

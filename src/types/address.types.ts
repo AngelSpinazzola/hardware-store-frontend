@@ -48,7 +48,7 @@ export interface ReceiverData {
   dni: string;
 }
 
-export interface UpdateAddressData extends Partial<CreateAddressData> {}
+export type UpdateAddressData = Partial<CreateAddressData>;
 
 // Validación de dirección
 export interface AddressValidation {

@@ -32,7 +32,7 @@ export const addressValidators = {
     if (!value.trim()) return { isValid: false, message: 'El código postal es requerido' };
     if (value.length < 4) return { isValid: false, message: 'Mínimo 4 dígitos' };
     if (value.length > 10) return { isValid: false, message: 'Máximo 10 caracteres' };
-    if (!/^[\d\s\-]{4,10}$/.test(value)) return { isValid: false, message: 'Solo números, espacios y guiones' };
+    if (!/^[\d\s-]{4,10}$/.test(value)) return { isValid: false, message: 'Solo números, espacios y guiones' };
     return { isValid: true };
   },
 

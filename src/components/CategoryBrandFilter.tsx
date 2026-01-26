@@ -17,19 +17,18 @@ const CategoryBrandFilter = ({
     selectedBrand,
     onBrandChange
 }: CategoryBrandFilterProps) => {
-    // No muestra filtro de marcas para procesadores (redundante con subcategorías Intel/AMD)
-    if (selectedCategory?.toLowerCase() === 'procesadores') {
-        return null;
-    }
-
     const availableBrands = useMemo(() => {
+        // No muestra filtro de marcas para procesadores (redundante con subcategorías Intel/AMD)
+        if (selectedCategory?.toLowerCase() === 'procesadores') {
+            return [];
+        }
+
         if (!selectedCategory || !allProducts) return [];
 
         let filteredProducts = allProducts.filter(product =>
             product.categoryName?.toLowerCase() === selectedCategory.toLowerCase()
         );
 
-        // Si hay subcategoría seleccionada, filtrar por ella también
         if (selectedSubcategory) {
             filteredProducts = filteredProducts.filter(product => {
                 const subcategory = detectSubcategory({
@@ -50,7 +49,7 @@ const CategoryBrandFilter = ({
         )].sort();
     }, [allProducts, selectedCategory, selectedSubcategory]);
 
-    // No mostrar el filtro si no hay marcas disponibles
+    // No mostrar el filtro si no hay marcas disponibles o es procesadores
     if (availableBrands.length === 0) {
         return null;
     }

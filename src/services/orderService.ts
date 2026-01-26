@@ -209,7 +209,7 @@ class OrderService {
       errors.name = 'El nombre debe tener al menos 2 caracteres';
     } else if (customerData.name.trim().length > 100) {
       errors.name = 'El nombre no puede exceder 100 caracteres';
-    } else if (!/^[a-zA-ZáéíóúñÁÉÍÓÚÑüÜ\s\-\.]+$/.test(customerData.name.trim())) {
+    } else if (!/^[a-zA-ZáéíóúñÁÉÍÓÚÑüÜ\s\-.]+$/.test(customerData.name.trim())) {
       errors.name = 'El nombre solo puede contener letras, espacios, guiones y puntos';
     }
 
@@ -229,16 +229,16 @@ class OrderService {
         errors.phone = 'El teléfono debe tener entre 8 y 20 caracteres';
       }
       // Solo puede contener números, espacios, guiones, paréntesis y el signo +
-      else if (!/^[\d\s\-\+\(\)]{8,20}$/.test(phone)) {
+      else if (!/^[\d\s\-+()]{8,20}$/.test(phone)) {
         errors.phone = 'Formato de teléfono inválido. Ej: +54 11 1234-5678 o 1234567890';
       }
       // No puede tener solo números repetidos
-      else if (/^(\d)\1+$/.test(phone.replace(/[\s\-\+\(\)]/g, ''))) {
+      else if (/^(\d)\1+$/.test(phone.replace(/[\s\-+()]/g, ''))) {
         errors.phone = 'El teléfono no puede tener solo números repetidos';
       }
       // No puede ser muy largo sin espacios/guiones
       else {
-        const digitsOnly = phone.replace(/[\s\-\+\(\)]/g, '');
+        const digitsOnly = phone.replace(/[\s\-+()]/g, '');
         if (digitsOnly.length > 15) {
           errors.phone = 'El teléfono tiene demasiados dígitos';
         } else if (digitsOnly.length < 7) {
@@ -378,12 +378,8 @@ class OrderService {
   }
 
   async getReceiptViewUrl(orderId: number): Promise<string> {
-    try {
-      // El endpoint /view-receipt usa la cookie httpOnly automáticamente
-      return `${api.defaults.baseURL}/order/${orderId}/view-receipt`;
-    } catch (error) {
-      throw error;
-    }
+    // El endpoint /view-receipt usa la cookie httpOnly automáticamente
+    return `${api.defaults.baseURL}/order/${orderId}/view-receipt`;
   }
 
   async cancelOrder(orderId: number): Promise<void> {
