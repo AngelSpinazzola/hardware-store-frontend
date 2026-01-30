@@ -3,6 +3,7 @@ import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import AdminLayout from '../Layout/AdminLayout';
 import ReactApexChart from 'react-apexcharts';
+import Spinner from '@/components/Common/Spinner';
 import { useSalesAnalytics, type PeriodType } from './hooks/useSalesAnalytics';
 import { getRevenueChartOptions, getTicketChartOptions } from './config/salesChartConfig';
 import PeriodDropdown from './components/PeriodDropdown';
@@ -62,11 +63,9 @@ export default function SalesAnalytics() {
     if (loading) {
         return (
             <AdminLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
-                <div className="flex items-center justify-center py-12">
-                    <div className="text-center">
-                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto"></div>
-                        <p className="mt-4 text-gray-600">Cargando datos de ventas...</p>
-                    </div>
+                <div className="flex flex-col items-center justify-center min-h-[90vh]">
+                    <Spinner size="md" color="blue" />
+                    <p className="mt-4 text-gray-600">Cargando datos de ventas...</p>
                 </div>
             </AdminLayout>
         );

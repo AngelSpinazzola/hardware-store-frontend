@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import AdminLayout from '@/pages/Admin/Layout/AdminLayout';
 import ReactApexChart from 'react-apexcharts';
+import Spinner from '@/components/Common/Spinner';
 import { useProductsAnalytics } from './hooks/useProductsAnalytics';
 import { getBarChartOptions, getPieChartOptions } from './config/chartConfigs';
 import TopProductCard from './components/TopProductCard';
@@ -51,11 +52,9 @@ export default function TopProductsAnalytics() {
     if (loading) {
         return (
             <AdminLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
-                <div className="flex items-center justify-center py-12">
-                    <div className="text-center">
-                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
-                        <p className="mt-4 text-gray-600">Cargando datos de productos...</p>
-                    </div>
+                <div className="flex flex-col items-center justify-center min-h-[90vh]">
+                    <Spinner size="md" color="blue" />
+                    <p className="mt-4 text-gray-600">Cargando datos de productos...</p>
                 </div>
             </AdminLayout>
         );

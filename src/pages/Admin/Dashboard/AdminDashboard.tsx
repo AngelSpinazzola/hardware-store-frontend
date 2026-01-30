@@ -289,7 +289,7 @@ export default function AdminDashboard() {
                 sidebarOpen={sidebarOpen}
                 setSidebarOpen={setSidebarOpen}
             >
-                <div className="flex flex-col items-center justify-center py-12">
+                <div className="flex flex-col items-center justify-center min-h-[90vh]">
                     <Spinner size="md" color="blue" />
                     <p className="mt-4 text-gray-600">
                         Cargando dashboard...
