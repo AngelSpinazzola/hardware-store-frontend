@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useReducer, useEffect, ReactNode } from 'react';
+import { AxiosError } from 'axios';
 import { authService } from '@/services/authService';
 import { toast } from 'react-toastify';
 import type {
@@ -138,8 +139,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             sessionStorage.setItem('justLoggedIn', 'true');
 
             return { success: true };
-        } catch (error: any) {
-            const errorMessage = error.response?.data?.message || 'Error de conexión';
+        } catch (error: unknown) {
+            const axiosError = error as AxiosError<{ message?: string }>;
+            const errorMessage = axiosError.response?.data?.message || 'Error de conexión';
             dispatch({
                 type: 'LOGIN_FAILURE',
                 payload: errorMessage,
@@ -160,8 +162,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             sessionStorage.setItem('justRegistered', 'true');
 
             return { success: true };
-        } catch (error: any) {
-            const errorMessage = error.response?.data?.message || 'Error de conexión';
+        } catch (error: unknown) {
+            const axiosError = error as AxiosError<{ message?: string }>;
+            const errorMessage = axiosError.response?.data?.message || 'Error de conexión';
             dispatch({
                 type: 'LOGIN_FAILURE',
                 payload: errorMessage,
@@ -182,8 +185,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             sessionStorage.setItem('justLoggedIn', 'true');
 
             return { success: true };
-        } catch (error: any) {
-            const errorMessage = error.response?.data?.message || 'Error de conexión con Google';
+        } catch (error: unknown) {
+            const axiosError = error as AxiosError<{ message?: string }>;
+            const errorMessage = axiosError.response?.data?.message || 'Error de conexión con Google';
             dispatch({
                 type: 'LOGIN_FAILURE',
                 payload: errorMessage,

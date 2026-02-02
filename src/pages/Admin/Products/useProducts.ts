@@ -1,5 +1,6 @@
 // src/pages/Admin/Products/useProducts.ts
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 import { productService } from '@/services/productService';
 import { toast } from 'react-toastify';
 import type { ProductSummary, ProductDetail, ProductListResponse } from '@/types/product.types';
@@ -41,8 +42,9 @@ export const useProducts = (): UseProductsReturn => {
         }
 
         return productsData;
-      } catch (err: any) {
-        const errorMessage = err.response?.data?.message || 'Error al cargar los productos';
+      } catch (err: unknown) {
+        const axiosError = err as AxiosError<{ message?: string }>;
+        const errorMessage = axiosError.response?.data?.message || 'Error al cargar los productos';
         toast.error(errorMessage);
         throw new Error(errorMessage);
       }
@@ -60,7 +62,7 @@ export const useProducts = (): UseProductsReturn => {
       try {
         const categoriesResponse: string[] = await productService.getCategories();
         return Array.isArray(categoriesResponse) ? categoriesResponse : [];
-      } catch (err: any) {
+      } catch (err: unknown) {
         console.error('Error loading categories:', err);
         toast.error('Error al cargar las categorías');
         return [];
@@ -82,9 +84,10 @@ export const useProducts = (): UseProductsReturn => {
       // Invalidar cache para refrescar la lista de productos
       queryClient.invalidateQueries({ queryKey: ['admin-products'] });
     },
-    onError: (err: any) => {
+    onError: (err: AxiosError<{ message?: string }> | Error) => {
       if (err.message !== 'Cancelled by user') {
-        const errorMessage = err.response?.data?.message || 'Error al eliminar producto';
+        const axiosError = err as AxiosError<{ message?: string }>;
+        const errorMessage = axiosError.response?.data?.message || 'Error al eliminar producto';
         toast.error(errorMessage);
       }
     }

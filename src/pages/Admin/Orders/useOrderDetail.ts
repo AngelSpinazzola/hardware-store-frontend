@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { AxiosError } from 'axios';
 import { orderService } from '@/services/orderService';
 import { toast } from 'react-toastify';
 import type { OrderConfirmationDetail } from '@/types/order.types';
@@ -27,8 +28,9 @@ export const useOrderDetail = (orderId: string | undefined): UseOrderDetailRetur
       setError(null);
       const orderData = await orderService.getOrderById(parseInt(orderId));
       setOrder(orderData);
-    } catch (err: any) {
-      const errorMessage = err?.message || 'Error al cargar la orden';
+    } catch (err: unknown) {
+      const axiosError = err as AxiosError<{ message?: string }>;
+      const errorMessage = axiosError.response?.data?.message || axiosError.message || 'Error al cargar la orden';
       setError(errorMessage);
       toast.error(errorMessage);
     } finally {

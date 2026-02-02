@@ -1,6 +1,7 @@
 // src/pages/Admin/Orders/useOrders.ts
 import { useState, useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 import { orderService } from '@/services/orderService';
 import { toast } from 'react-toastify';
 import type { OrderSummary, OrderStatus } from '@/types/order.types';
@@ -136,8 +137,9 @@ export const useOrders = (): UseOrdersReturn => {
     queryFn: async () => {
       try {
         return await orderService.getAllOrders();
-      } catch (err: any) {
-        const errorMessage = err.response?.data?.message || 'Error al cargar las órdenes';
+      } catch (err: unknown) {
+        const axiosError = err as AxiosError<{ message?: string }>;
+        const errorMessage = axiosError.response?.data?.message || 'Error al cargar las órdenes';
         toast.error(errorMessage);
         throw new Error(errorMessage);
       }
@@ -158,7 +160,7 @@ export const useOrders = (): UseOrdersReturn => {
       queryClient.invalidateQueries({ queryKey: ['products-analytics'] });
       queryClient.invalidateQueries({ queryKey: ['sales-analytics'] });
     },
-    onError: (err: any) => {
+    onError: (err: AxiosError<{ message?: string }>) => {
       const errorMessage = err.response?.data?.message || 'Error al aprobar el pago';
       toast.error(errorMessage);
     }
@@ -177,7 +179,7 @@ export const useOrders = (): UseOrdersReturn => {
       queryClient.invalidateQueries({ queryKey: ['products-analytics'] });
       queryClient.invalidateQueries({ queryKey: ['sales-analytics'] });
     },
-    onError: (err: any) => {
+    onError: (err: AxiosError<{ message?: string }>) => {
       const errorMessage = err.response?.data?.message || 'Error al rechazar el pago';
       toast.error(errorMessage);
     }

@@ -1,6 +1,7 @@
 // src/pages/Admin/Orders/usePendingOrders.ts
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 import { orderService } from '@/services/orderService';
 import { toast } from 'react-toastify';
 import type { OrderSummary } from '@/types/order.types';
@@ -30,8 +31,9 @@ export const usePendingOrders = (): UsePendingOrdersReturn => {
     queryFn: async () => {
       try {
         return await orderService.getOrdersPendingReview();
-      } catch (err: any) {
-        const errorMessage = err?.message || 'Error al cargar órdenes pendientes';
+      } catch (err: unknown) {
+        const axiosError = err as AxiosError<{ message?: string }>;
+        const errorMessage = axiosError.response?.data?.message || 'Error al cargar órdenes pendientes';
         toast.error(errorMessage);
         throw new Error(errorMessage);
       }
@@ -52,7 +54,7 @@ export const usePendingOrders = (): UsePendingOrdersReturn => {
       queryClient.invalidateQueries({ queryKey: ['pending-orders'] });
       queryClient.invalidateQueries({ queryKey: ['admin-orders'] });
     },
-    onError: (err: any) => {
+    onError: (err: AxiosError<{ message?: string }>) => {
       const errorMessage = err.response?.data?.message || 'Error al aprobar el pago';
       toast.error(errorMessage);
     },
@@ -74,7 +76,7 @@ export const usePendingOrders = (): UsePendingOrdersReturn => {
       queryClient.invalidateQueries({ queryKey: ['pending-orders'] });
       queryClient.invalidateQueries({ queryKey: ['admin-orders'] });
     },
-    onError: (err: any) => {
+    onError: (err: AxiosError<{ message?: string }>) => {
       const errorMessage = err.response?.data?.message || 'Error al rechazar el pago';
       toast.error(errorMessage);
     },
