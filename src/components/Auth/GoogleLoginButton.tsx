@@ -9,7 +9,7 @@ const GoogleLoginButton = () => {
     onSuccess: async (tokenResponse) => {
       try {
         await googleLogin(tokenResponse.access_token);
-      } catch (error) {
+      } catch {
         toast.error('Error al iniciar sesión con Google');
       }
     },

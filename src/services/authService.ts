@@ -54,7 +54,7 @@ export const authService = {
     try {
       // Llamar al endpoint de logout para eliminar cookie httpOnly del servidor
       await api.post('/auth/logout');
-    } catch (error) {
+    } catch {
       // Continuar con logout local aunque falle el servidor
       // Silenciar error - el logout local se ejecutará de todas formas
     }

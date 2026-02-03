@@ -91,7 +91,7 @@ export const useProductDetail = () => {
     const buildAllProductsUrl = useCallback(() => {
         const state = location.state as any;
         if (state?.filters) {
-            const { category, subcategory, brand, ...otherFilters } = state.filters;
+            const { category: _category, subcategory: _subcategory, brand: _brand, ...otherFilters } = state.filters;
             const searchParams = new URLSearchParams();
             Object.entries(otherFilters).forEach(([key, value]) => {
                 if (value) searchParams.set(key, value as string);

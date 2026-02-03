@@ -59,7 +59,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
             dispatch({ type: 'ADD_ITEM', payload: cartItem });
 
             return true;
-        } catch (error) {
+        } catch {
             showToastOnce('Error al agregar al carrito', 'error', 'error');
             return false;
         }
@@ -74,7 +74,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
                     duration: 1500,
                 });
             }
-        } catch (error) {
+        } catch {
             showToastOnce('Error al eliminar del carrito', 'error', 'error');
         }
     };
@@ -93,7 +93,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
             }
 
             dispatch({ type: 'UPDATE_QUANTITY', payload: { id: productId, quantity } });
-        } catch (error) {
+        } catch {
             showToastOnce('Error al actualizar cantidad', 'error', 'error');
         }
     };
@@ -101,7 +101,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     const clearCart = (): void => {
         try {
             dispatch({ type: 'CLEAR_CART' });
-        } catch (error) {
+        } catch {
             showToastOnce('Error al vaciar carrito', 'error', 'error');
         }
     };

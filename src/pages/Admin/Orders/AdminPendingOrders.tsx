@@ -73,7 +73,7 @@ export default function AdminPendingOrders() {
         await handleRejectPayment(actionModal.order.id, notes);
       }
       handleCloseActionModal();
-    } catch (error) {
+    } catch {
       // Error ya manejado en usePendingOrders
     }
   };

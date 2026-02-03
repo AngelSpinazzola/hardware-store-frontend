@@ -64,7 +64,7 @@ export default function AdminOrders() {
         await handleRejectPayment(actionModal.order.id, notes);
       }
       handleCloseModal();
-    } catch (error) {
+    } catch {
       // Error ya manejado en useOrders
     }
   };
