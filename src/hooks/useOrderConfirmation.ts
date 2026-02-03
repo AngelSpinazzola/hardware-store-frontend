@@ -1,6 +1,7 @@
 // src/pages/OrderConfirmation/useOrderConfirmation.ts
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 import { orderService } from '@/services/orderService';
 import { toast } from 'react-toastify';
 
@@ -48,7 +49,7 @@ export const useOrderConfirmation = ({ orderId }: UseOrderConfirmationProps) => 
             // Limpiar archivo seleccionado
             setSelectedFile(null);
         },
-        onError: (err: any) => {
+        onError: (err: AxiosError<{ message?: string }>) => {
             const errorMessage = err.response?.data?.message || 'Error al subir el comprobante';
             toast.error(errorMessage);
         }

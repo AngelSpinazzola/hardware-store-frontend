@@ -181,7 +181,7 @@ export const productService = {
   },
 
   // Actualiza orden de imágenes
-  updateImagesOrder: async (productId: number, updateData: any): Promise<ProductImage[]> => {
+  updateImagesOrder: async (productId: number, updateData: { Images: Array<{ ImageId: number; DisplayOrder: number }> }): Promise<ProductImage[]> => {
     const response = await api.put<ProductImage[]>(`/product/${productId}/images/order`, updateData);
     return response.data;
   },

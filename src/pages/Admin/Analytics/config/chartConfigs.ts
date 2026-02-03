@@ -11,6 +11,12 @@ interface PieChartData {
     labels: string[];
 }
 
+// ApexCharts internal types (not exported by library)
+interface ApexLegendFormatterOpts {
+    w: { globals: { series: number[]; seriesTotals: number[] } };
+    seriesIndex: number;
+}
+
 /**
  * Configuración del gráfico de barras para Top 10 productos
  */
@@ -85,7 +91,7 @@ export const getBarChartOptions = (barData: BarChartData[]): ApexOptions => {
  * Configuración del gráfico de donut para Top 3 productos por ingresos
  */
 export const getPieChartOptions = (pieChartData: PieChartData): ApexOptions => {
-    const formatLegend = (seriesName: string, opts: any, maxLength: number) => {
+    const formatLegend = (seriesName: string, opts: ApexLegendFormatterOpts, maxLength: number) => {
         const value = opts.w.globals.series[opts.seriesIndex];
         const total = opts.w.globals.seriesTotals.reduce((a: number, b: number) => a + b, 0);
         const percentage = ((value / total) * 100).toFixed(1);
@@ -153,7 +159,7 @@ export const getPieChartOptions = (pieChartData: PieChartData): ApexOptions => {
                 legend: {
                     position: 'bottom',
                     fontSize: '12px',
-                    formatter: (seriesName: string, opts: any) => formatLegend(seriesName, opts, 30)
+                    formatter: (seriesName: string, opts: ApexLegendFormatterOpts) => formatLegend(seriesName, opts, 30)
                 },
                 plotOptions: {
                     pie: {

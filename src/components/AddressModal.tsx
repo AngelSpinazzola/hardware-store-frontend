@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react';
+import { AxiosError } from 'axios';
 import { addressService } from '@/services/addressService';
 import ValidatedInput from './ValidatedInput';
 import { addressValidators, validateAllFields, JURISDICTIONS } from '@/utils/addressValidation';
-import type { CreateAddressData } from '@/types/address.types';
+import type { CreateAddressData, ShippingAddress } from '@/types/address.types';
 
 interface AddressModalProps {
     isOpen: boolean;
     onClose: () => void;
     onSave: () => void;
-    editingAddress?: any;
+    editingAddress?: ShippingAddress | null;
 }
 
 const INITIAL_FORM_DATA: CreateAddressData = {
@@ -84,8 +85,9 @@ const AddressModal = ({ isOpen, onClose, onSave, editingAddress = null }: Addres
             }
             onSave();
             onClose();
-        } catch (err: any) {
-            setErrors({ general: err.response?.data?.message || err.message || 'Error al guardar' });
+        } catch (err: unknown) {
+            const axiosError = err as AxiosError<{ message?: string }>;
+            setErrors({ general: axiosError.response?.data?.message || axiosError.message || 'Error al guardar' });
         } finally {
             setLoading(false);
         }

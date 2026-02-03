@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { AxiosError } from 'axios';
 import { authService } from '../services/authService';
 import { toast } from 'react-toastify';
 import NavBar from '../components/Common/NavBar';
@@ -41,8 +42,9 @@ const ResetPassword = () => {
       const response = await authService.resetPassword(token, newPassword);
       toast.success(response.message);
       setTimeout(() => navigate('/auth'), 2000);
-    } catch (error: any) {
-      toast.error(error.response?.data?.message || 'Error al restablecer contraseña');
+    } catch (error: unknown) {
+      const axiosError = error as AxiosError<{ message?: string }>;
+      toast.error(axiosError.response?.data?.message || 'Error al restablecer contraseña');
     } finally {
       setLoading(false);
     }

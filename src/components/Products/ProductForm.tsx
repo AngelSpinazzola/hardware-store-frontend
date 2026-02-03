@@ -49,13 +49,13 @@ const ProductForm = ({ product, onSuccess, onCancel }: ProductFormProps) => {
             setNewBrand('');
             handleInputChange({
                 target: { name: 'brand', value: '', type: 'text' }
-            } as any);
+            } as React.ChangeEvent<HTMLInputElement>);
         } else {
             setIsNewBrand(false);
             setNewBrand('');
             handleInputChange({
                 target: { name: 'brand', value: selectedValue, type: 'text' }
-            } as any);
+            } as React.ChangeEvent<HTMLInputElement>);
         }
     };
 

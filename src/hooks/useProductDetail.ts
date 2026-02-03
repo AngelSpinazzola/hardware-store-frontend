@@ -5,6 +5,15 @@ import { useCart } from '@/context/CartContext';
 import { detectSubcategory } from '@/utils/subcategoryDetector';
 import { ProductDetail as ProductDetailType } from '@/types/product.types';
 
+interface LocationState {
+    filters?: {
+        category?: string;
+        subcategory?: string;
+        brand?: string;
+        [key: string]: string | undefined;
+    };
+}
+
 export const useProductDetail = () => {
     const { id } = useParams<{ id: string }>();
     const location = useLocation();
@@ -89,7 +98,7 @@ export const useProductDetail = () => {
     }, [product]);
 
     const buildAllProductsUrl = useCallback(() => {
-        const state = location.state as any;
+        const state = location.state as LocationState | null;
         if (state?.filters) {
             const { category: _category, subcategory: _subcategory, brand: _brand, ...otherFilters } = state.filters;
             const searchParams = new URLSearchParams();

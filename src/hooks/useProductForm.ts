@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
+import { AxiosError } from 'axios';
 import { productService } from '@/services/productService';
 import { ProductDetail, CreateProductData, ProductStatus } from '@/types/product.types';
 import { useQueryClient } from '@tanstack/react-query';
@@ -56,7 +57,7 @@ export const useProductForm = (
         const { name, value, type } = e.target;
         const checked = (e.target as HTMLInputElement).checked;
 
-        let finalValue: any = value;
+        let finalValue: string | number | boolean = value;
 
         if (type === 'checkbox') {
             finalValue = checked;
@@ -165,7 +166,7 @@ export const useProductForm = (
 
         } catch (err) {
             console.error('Error saving product:', err);
-            const error = err as any;
+            const error = err as AxiosError<{ message?: string }>;
             const message = error.response?.data?.message || error.message || 'Error al guardar producto';
             toast.error(message);
         } finally {

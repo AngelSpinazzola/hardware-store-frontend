@@ -39,7 +39,7 @@ export const useProductFormData = (product?: ProductDetail | null) => {
                     .sort((a, b) => a.displayOrder - b.displayOrder)
                     .map((img): FormImage => ({
                         id: img.id,
-                        url: productService.getImageUrl((img as any).imageUrl),
+                        url: productService.getImageUrl(img.imageUrl),
                         isMain: img.isMain,
                         displayOrder: img.displayOrder,
                         isExisting: true,

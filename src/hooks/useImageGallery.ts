@@ -1,11 +1,12 @@
 import { useState, useRef, useMemo, useCallback } from 'react';
+import type { Swiper as SwiperType } from 'swiper';
 import { productService } from '@/services/productService';
 import { ProductDetail as ProductDetailType } from '@/types/product.types';
 
 export const useImageGallery = (product: ProductDetailType | null) => {
     const [activeSlide, setActiveSlide] = useState<number>(0);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-    const swiperRef = useRef<any>(null);
+    const swiperRef = useRef<SwiperType | null>(null);
 
     const displayImages = useMemo(() => {
         if (!product) return [];
@@ -67,11 +68,11 @@ export const useImageGallery = (product: ProductDetailType | null) => {
     const openModal = useCallback(() => setIsModalOpen(true), []);
     const closeModal = useCallback(() => setIsModalOpen(false), []);
 
-    const onSlideChange = useCallback((swiper: any) => {
+    const onSlideChange = useCallback((swiper: SwiperType) => {
         setActiveSlide(swiper.activeIndex);
     }, []);
 
-    const onSwiperInit = useCallback((swiper: any) => {
+    const onSwiperInit = useCallback((swiper: SwiperType) => {
         swiperRef.current = swiper;
     }, []);
 

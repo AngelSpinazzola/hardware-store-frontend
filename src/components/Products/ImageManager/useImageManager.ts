@@ -169,7 +169,7 @@ export const useImageManager = ({ images, onImagesChange, productId }: UseImageM
                     Images: imageOrders
                 };
 
-                await productService.updateImagesOrder(productId, updateData as any);
+                await productService.updateImagesOrder(productId, updateData);
 
                 const mainImage = reorderedImages.find(img => img.isMain);
                 if (mainImage && typeof mainImage.id === 'number') {

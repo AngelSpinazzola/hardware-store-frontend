@@ -1,4 +1,5 @@
 import api from './api';
+import { AxiosError } from 'axios';
 import type {
   Order,
   OrderSummary,
@@ -159,9 +160,10 @@ class OrderService {
     }
   }
 
-  private handleError(error: any): Error {
-    if (error.response?.data?.message) {
-      return new Error(error.response.data.message);
+  private handleError(error: unknown): Error {
+    const axiosError = error as AxiosError<{ message?: string }>;
+    if (axiosError.response?.data?.message) {
+      return new Error(axiosError.response.data.message);
     }
     return new Error('Error de conexión. Intenta nuevamente.');
   }

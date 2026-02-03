@@ -1,8 +1,29 @@
 // src/pages/Admin/Analytics/config/dashboardChartConfig.ts
 import type { ApexOptions } from 'apexcharts';
 
+interface ChartDataPoint {
+    period: string;
+    revenue: number;
+    orders: number;
+}
+
+// ApexCharts internal types (not exported by library)
+interface ApexLegendFormatterOpts {
+    w: { globals: { series: number[]; seriesTotals: number[] } };
+    seriesIndex: number;
+}
+
+interface ApexTotalFormatterContext {
+    globals: { seriesTotals: number[] };
+}
+
+interface ApexTooltipFormatterContext {
+    dataPointIndex: number;
+    w: { config: { series: Array<{ data: Array<{ percentage?: number }> }> } };
+}
+
 // Gráfico 1: Ingresos + Órdenes (Área + Línea combinados)
-export const getRevenueOrdersChartOptions = (data: any[]): ApexOptions => ({
+export const getRevenueOrdersChartOptions = (data: ChartDataPoint[]): ApexOptions => ({
     chart: {
         type: 'area',
         height: 350,
@@ -185,7 +206,7 @@ export const getOrdersStatusChartOptions = (labels: string[]): ApexOptions => ({
             horizontal: 8,
             vertical: 4
         },
-        formatter: (seriesName: string, opts: any) => {
+        formatter: (seriesName: string, opts: ApexLegendFormatterOpts) => {
             const value = opts.w.globals.series[opts.seriesIndex];
             return `${seriesName}: <strong>${value}</strong>`;
         }
@@ -217,7 +238,7 @@ export const getOrdersStatusChartOptions = (labels: string[]): ApexOptions => ({
                         fontSize: '14px',
                         fontWeight: 500,
                         color: '#6B7280',
-                        formatter: (w: any) => {
+                        formatter: (w: ApexTotalFormatterContext) => {
                             const total = w.globals.seriesTotals.reduce((a: number, b: number) => a + b, 0);
                             return total.toString();
                         }
@@ -354,7 +375,7 @@ export const getCategorySalesChartOptions = (categories: string[]): ApexOptions 
     },
     tooltip: {
         y: {
-            formatter: (value: number, { dataPointIndex, w }: any) => {
+            formatter: (value: number, { dataPointIndex, w }: ApexTooltipFormatterContext) => {
                 const percentage = w.config.series[0].data[dataPointIndex]?.percentage || 0;
                 return `$${value.toLocaleString('es-AR', { 
                     minimumFractionDigits: 2,

@@ -1,12 +1,23 @@
 // src/pages/Admin/Analytics/AnalyticsDashboard.tsx
 import { useState, useMemo } from 'react';
+import type { IconType } from 'react-icons';
 import AdminLayout from '@/pages/Admin/Layout/AdminLayout';
 import ReactApexChart from 'react-apexcharts';
 import Spinner from '@/components/Common/Spinner';
-import { useDashboardAnalytics } from './hooks/useDashboardAnalytics';
+import { useDashboardAnalytics, type TimePeriod } from './hooks/useDashboardAnalytics';
 import { getRevenueOrdersChartOptions, getCategorySalesChartOptions } from './config/dashboardChartConfig';
 import PeriodDropdown from './components/PeriodDropdown';
 import { HiTrendingUp, HiTrendingDown, HiChartBar, HiShoppingCart, HiClock, HiCurrencyDollar } from 'react-icons/hi';
+
+interface StatCardProps {
+    title: string;
+    value: string | number;
+    subtitle?: string;
+    icon: IconType;
+    trend?: string;
+    trendValue?: number;
+    color: string;
+}
 
 export default function AnalyticsDashboard() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -57,7 +68,7 @@ export default function AnalyticsDashboard() {
     const hasCategoryData = salesByCategory.length > 0;
 
     // Componente de Card de Stats
-    const StatCard = ({ title, value, subtitle, icon: Icon, trend, trendValue, color }: any) => (
+    const StatCard = ({ title, value, subtitle, icon: Icon, trend, trendValue, color }: StatCardProps) => (
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sm:p-6">
             <div className="flex items-center justify-between mb-4">
                 <div className={`p-2 sm:p-3 rounded-lg ${color}`}>
@@ -162,7 +173,7 @@ export default function AnalyticsDashboard() {
                         <PeriodDropdown
                             months={periodOptions}
                             selectedMonth={timePeriod}
-                            onMonthChange={(period) => setTimePeriod(period as any)}
+                            onMonthChange={(period) => setTimePeriod(period as TimePeriod)}
                             showDropdown={showRevenueDropdown}
                             setShowDropdown={setShowRevenueDropdown}
                         />
@@ -199,7 +210,7 @@ export default function AnalyticsDashboard() {
                         <PeriodDropdown
                             months={periodOptions}
                             selectedMonth={timePeriod}
-                            onMonthChange={(period) => setTimePeriod(period as any)}
+                            onMonthChange={(period) => setTimePeriod(period as TimePeriod)}
                             showDropdown={showStatusDropdown}
                             setShowDropdown={setShowStatusDropdown}
                         />

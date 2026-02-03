@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { AxiosError } from 'axios';
 import { authService } from '../services/authService';
 import { toast } from 'react-toastify';
 import NavBar from '../components/Common/NavBar';
@@ -17,8 +18,9 @@ const ForgotPassword = () => {
       const response = await authService.forgotPassword(email);
       setEmailSent(true);
       toast.success(response.message);
-    } catch (error: any) {
-      toast.error(error.response?.data?.message || 'Error al enviar el correo');
+    } catch (error: unknown) {
+      const axiosError = error as AxiosError<{ message?: string }>;
+      toast.error(axiosError.response?.data?.message || 'Error al enviar el correo');
     } finally {
       setLoading(false);
     }
