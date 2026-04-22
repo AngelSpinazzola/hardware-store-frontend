@@ -1,5 +1,9 @@
-import { toast, Id } from 'react-toastify';
+import { toast, Id, ToastOptions } from 'react-toastify';
 import type { ToastCategory } from '@/types/cart.types';
+
+interface CustomToastOptions extends ToastOptions {
+    duration?: number;
+}
 
 const recentToasts = new Set<string>();
 
@@ -13,7 +17,7 @@ export const showToastOnce = (
     message: string,
     type: 'success' | 'error' = 'success',
     category: ToastCategory = 'general',
-    options: any = {}
+    options: CustomToastOptions = {}
 ): void => {
     if (recentToasts.has(message)) return;
 

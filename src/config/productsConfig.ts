@@ -35,7 +35,7 @@ export const PRODUCTS_UTILS = {
      * Verificar si han pasado suficientes milisegundos desde la inicialización
      */
     hasEnoughTimePassed: (minTime: number = PRODUCTS_CONFIG.INITIALIZATION_BUFFER_TIME): boolean => {
-        return Date.now() - ((window as any).lastInitTime || 0) >= minTime;
+        return Date.now() - (window.lastInitTime || 0) >= minTime;
     },
 
     /**

@@ -77,7 +77,7 @@ const CategoryGrid = () => {
     ];
 
     return (
-        <section className="py-8 md:py-12 lg:py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <section className="py-8 md:py-12 lg:py-4 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
             <div className="w-full max-w-6xl mx-auto relative z-10">
                 {/* Header */}
                 <div className="text-center mb-8 md:mb-12 lg:mb-16">
