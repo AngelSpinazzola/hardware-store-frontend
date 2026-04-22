@@ -103,7 +103,7 @@ const NavBar = ({
                         <Link to="/" onClick={handleLogoClick} className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0 md:mr-auto md:ml-0 -ml-5">
                             <div className="relative group">
                                 <div>
-                                    <img src={novatechLogo} alt="Nova Tech Logo" className="w-8 h-8 sm:w-9 sm:h-9 object-contain" />
+                                    <img src={novatechLogo} alt="Nova Tech Logo" className="hidden md:block w-8 h-8 sm:w-9 sm:h-9 object-contain" />
                                 </div>
                             </div>
 
