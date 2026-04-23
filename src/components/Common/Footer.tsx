@@ -148,7 +148,7 @@ export const Footer = () => {
                         {/* Bottom section */}
                         <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
                             <span className="text-sm text-gray-300 text-center sm:text-left">
-                                © 2025{" "}
+                                © {new Date().getFullYear()}{" "}
                                 <span className="font-semibold">
                                     <span className="text-white">NOVA</span>
                                     <span className="nova-text-orange">
