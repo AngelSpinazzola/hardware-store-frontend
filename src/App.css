@@ -115,6 +115,37 @@
   border-color: #e5e7eb;
 }
 
+/* Nav links — sliding underline con glow naranja */
+.nav-link-slide {
+  position: relative;
+  color: #374151;
+  transition: color 0.25s ease;
+}
+
+.nav-link-slide::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--nova-orange), #fbbf24);
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s ease;
+}
+
+.nav-link-slide:hover {
+  color: var(--nova-orange);
+}
+
+.nav-link-slide:hover::after {
+  transform: scaleX(1);
+  box-shadow: 0 2px 8px rgba(255, 136, 44, 0.5);
+}
+
 /* Toast personalizado */
 .custom-toast {
   cursor: pointer;
