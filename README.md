@@ -1,87 +1,105 @@
-# 🛒 Hardware Store - Frontend
+# 🛒 NovaTech Store — Frontend
 
-E-commerce moderno para venta de componentes de hardware para PC, desarrollado con React, TypeScript y Vite.
+E-commerce moderno para la venta de componentes de hardware para PC, desarrollado con **React 19**, **TypeScript** y **Vite**.
 
-## 🔑 Integraciones Principales
+![React](https://img.shields.io/badge/React-19.1-61DAFB?logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-7.0-646CFF?logo=vite&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/Tailwind-3.4-38B2AC?logo=tailwind-css&logoColor=white)
+![React Query](https://img.shields.io/badge/React%20Query-5.90-FF4154?logo=react-query&logoColor=white)
 
-- **💳 MercadoPago API** - Integración completa con pasarela de pagos de MercadoPago
-- **🔐 JWT Authentication** - Sistema de autenticación basado en JSON Web Tokens
-- **🌐 Google OAuth 2.0** - Autenticación con cuentas de Google (@react-oauth/google)
-- **📊 REST API Backend** - Consumo de API RESTful con Axios y TanStack React Query
+🔗 **Demo en vivo:** [novatech-store.vercel.app](https://novatech-store.vercel.app)
+🔗 **Backend (API):** [Repositorio del Backend](https://github.com/AngelSpinazzola/hardware-store-backend-api)
+
+---
 
 ## 📋 Tabla de Contenidos
 
-- [Integraciones Principales](#-integraciones-principales)
 - [Características](#-características)
 - [Tecnologías](#-tecnologías)
+- [Integraciones](#-integraciones)
 - [Estructura del Proyecto](#-estructura-del-proyecto)
-  - [Arquitectura](#arquitectura)
-  - [Patrones de Diseño](#patrones-de-diseño)
-  - [State Management](#state-management)
-- [Testing](#-testing)
-- [Optimizaciones Aplicadas](#-optimizaciones-aplicadas)
+- [Arquitectura](#-arquitectura)
 - [Requisitos Previos](#-requisitos-previos)
 - [Instalación](#-instalación)
 - [Configuración](#-configuración)
 - [Scripts Disponibles](#-scripts-disponibles)
+- [Testing](#-testing)
+- [Optimizaciones](#-optimizaciones)
+- [Seguridad](#-seguridad)
+
+---
 
 ## ✨ Características
 
-### Para Usuarios
-- 🔍 **Búsqueda y Filtros Avanzados** - Búsqueda por texto, categoría, marca, precio y más
-- 🛍️ **Carrito de Compras** - Gestión completa del carrito con persistencia en localStorage
-- 🔐 **Autenticación Segura** - Sistema JWT + Google OAuth 2.0 para login tradicional o con cuenta de Google
-- 📦 **Gestión de Órdenes** - Seguimiento completo de pedidos y estado de envío
-- 💳 **Pasarela de Pagos MercadoPago** - Procesamiento de pagos con MercadoPago API + opción de transferencia bancaria
-- 📱 **Responsive Design** - Experiencia optimizada para mobile, tablet y desktop
-- 🎨 **UI Moderna** - Interfaz limpia con Tailwind CSS
+### Para clientes
+- 🔍 **Búsqueda y filtros avanzados** — por texto, categoría jerárquica, marca, plataforma, rango de precio y stock
+- 🛍️ **Carrito persistente** en `localStorage` con validación de stock
+- 🔐 **Autenticación dual** — JWT tradicional + Google OAuth 2.0
+- 🏠 **Múltiples direcciones de envío** — ABM con las 24 provincias argentinas y receptor autorizado (DNI, teléfono)
+- 💳 **Dos métodos de pago** — MercadoPago (redirección a checkout oficial) o transferencia bancaria con upload de comprobante
+- 📦 **Seguimiento de órdenes** — timeline de estados, tracking y proveedor de envío
+- 📄 **Factura descargable** y perfil de usuario editable
+- 📱 **Responsive design** — optimizado para mobile, tablet y desktop
 
-### Para Administradores
-- 📊 **Dashboard Analítico** - Métricas de ventas, productos top y estadísticas en tiempo real
-- 📝 **Gestión de Productos** - CRUD completo con carga de imágenes y compresión automática
-- 📦 **Gestión de Órdenes** - Administración de estados de pedidos, comprobantes de pago y tracking
-- 👥 **Control de Usuarios** - Administración de roles (admin/user) con rutas protegidas
-- 📈 **Analytics** - Gráficos interactivos con ApexCharts y Recharts
-- 🖼️ **Optimización de Imágenes** - Compresión automática de imágenes con browser-image-compression
+### Para administradores
+- 📊 **Dashboard analítico** — KPIs de ventas, órdenes e ingresos en tiempo real
+- 📈 **Analytics interactivos** — gráficos de ventas por período, top productos, ventas por categoría y órdenes por estado
+- 📝 **Gestión de productos** — CRUD completo con upload múltiple, compresión client-side y reordenamiento de imágenes
+- 📦 **Gestión de órdenes** — aprobación/rechazo de comprobantes, marcado de envíos con tracking, cancelaciones
+- 👥 **Rutas protegidas por rol** — separación entre cliente y admin
+
+---
 
 ## 🚀 Tecnologías
 
 ### Core
-- **React 19.1.0** 
-- **TypeScript 5.9.2** 
-- **Vite 7.0.4**
+- **React 19.1** — UI library con las últimas features (concurrent rendering, transitions)
+- **TypeScript 5.9** — type safety con modo strict
+- **Vite 7.0** — build tool ultra-rápido con HMR
 
-### Estado y Datos
-- **TanStack React Query 5.90.6** - Server state management con caching inteligente
-- **React Context API** - Estado global (Auth, Cart)
-- **React Router DOM 7.6.3** - Routing y navegación
+### Estado y datos
+- **TanStack React Query 5.90** — server state management con caching inteligente
+- **React Context API** + `useReducer` — estado global (Auth, Cart)
+- **React Router DOM 7.6** — routing y navegación
 
-### UI y Estilos
-- **Tailwind CSS 3.4.0** - Utility-first CSS framework
-- **Headless UI 2.2.7** - Componentes accesibles sin estilos
-- **Heroicons 2.2.0** - Íconos SVG
-- **Flowbite React 0.12.9** - Componentes UI adicionales
-- **Swiper** - Carruseles touch-friendly
+### UI y estilos
+- **Tailwind CSS 3.4** — utility-first CSS framework
+- **Headless UI 2.2** — componentes accesibles sin estilos
+- **Heroicons** + **React Icons** — íconos SVG
+- **Flowbite React** — componentes UI adicionales
+- **Swiper** — carruseles touch-friendly
 
-### Visualización de Datos
-- **ApexCharts 5.3.5** - Gráficos interactivos
-- **Recharts** - Gráficos alternativos
+### Visualización de datos
+- **ApexCharts 5.3** + **Recharts** — gráficos interactivos para el dashboard
 
-### Autenticación y Pagos
-- **@react-oauth/google 0.12.2** - Google OAuth 2.0 integration
-- **JWT (JSON Web Tokens)** - Sistema de autenticación con tokens
-- **MercadoPago API** - Pasarela de pagos integrada
+### Autenticación y pagos
+- **@react-oauth/google** — Google OAuth 2.0
+- **JWT** — tokens enviados vía cookies httpOnly
+- **MercadoPago API** — pasarela de pagos integrada
 
-### Utilities
-- **Axios 1.10.0** - Cliente HTTP
-- **browser-image-compression 2.0.2** - Compresión de imágenes del lado del cliente
-- **SweetAlert2** - Diálogos y alertas elegantes
-- **react-toastify** - Notificaciones toast
+### Utilidades
+- **Axios 1.10** — cliente HTTP con interceptores
+- **browser-image-compression** — compresión de imágenes client-side
+- **SweetAlert2** — diálogos elegantes
+- **react-toastify** — notificaciones toast
+- **lodash** — utilidades funcionales
 
 ### Testing
-- **Vitest 4.0.15** - Framework de testing
-- **React Testing Library** - Testing de componentes
-- **jsdom** - DOM implementation para tests
+- **Vitest 4.0** — framework de testing ultra-rápido
+- **React Testing Library** — testing centrado en el usuario
+- **jsdom** — DOM implementation para tests
+
+---
+
+## 🔌 Integraciones
+
+- **💳 MercadoPago API** — integración completa con la pasarela de pagos
+- **🌐 Google OAuth 2.0** — autenticación con cuentas de Google
+- **🔐 JWT Authentication** — tokens en cookies httpOnly
+- **📊 REST API** — consumo con Axios y TanStack React Query
+
+---
 
 ## 📁 Estructura del Proyecto
 
@@ -89,99 +107,68 @@ E-commerce moderno para venta de componentes de hardware para PC, desarrollado c
 frontend/
 ├── public/                      # Archivos estáticos
 │   └── images/
-│       └── categories/          # Imágenes de categorías (optimizadas WebP)
+│       └── categories/          # Imágenes de categorías (WebP optimizado)
 ├── src/
-│   ├── assets/                  # Assets (logos, imágenes del código)
-│   ├── components/              # Componentes React
-│   │   ├── Auth/               # Componentes de autenticación
-│   │   ├── Cart/               # Componentes del carrito
-│   │   ├── Checkout/           # Flujo de checkout
-│   │   ├── Common/             # Componentes compartidos (NavBar, Footer)
-│   │   ├── Home/               # Componentes de página inicio
-│   │   ├── Orders/             # Componentes de órdenes
-│   │   ├── Products/           # Grid, filtros y componentes de productos
-│   │   └── ...                 # Otros componentes por dominio
+│   ├── assets/                  # Logos e imágenes del código
+│   ├── components/              # Componentes React por dominio
+│   │   ├── Auth/               # Login, registro, Google OAuth
+│   │   ├── Cart/               # Carrito y checkout
+│   │   ├── Checkout/           # Flujo de compra
+│   │   ├── Common/             # NavBar, Footer, ProtectedRoute
+│   │   ├── Home/               # Hero, carrusel, categorías
+│   │   ├── Orders/             # Tarjetas, timeline, upload
+│   │   ├── Products/           # Grid, filtros, galería
+│   │   └── ...
 │   ├── config/                 # Configuraciones centralizadas
-│   │   ├── constants.ts        # Constantes de la app
-│   │   ├── productsConfig.ts   # Config de productos
-│   │   └── subcategories.ts    # Config de subcategorías
-│   ├── context/                # React Context (estado global)
-│   │   ├── AuthContext.tsx     # Contexto de autenticación
-│   │   └── CartContext/        # Contexto del carrito (modularizado)
-│   ├── hooks/                  # Custom React Hooks
-│   │   ├── useAuth.ts         # Hook de autenticación
-│   │   ├── useCart.ts         # Hook del carrito
-│   │   ├── useProductFilters.ts # Filtros de productos
-│   │   └── ...                # 14+ hooks especializados
-│   ├── pages/                  # Páginas/Rutas principales
-│   │   ├── Admin/             # Páginas administrativas
-│   │   ├── Home.tsx           # Página de inicio
-│   │   ├── ProductsPage.tsx   # Listado de productos
-│   │   └── ...                # Otras páginas
-│   ├── services/              # Capa de servicios (API calls)
-│   │   ├── api.ts            # Configuración de Axios
-│   │   ├── authService.ts    # Servicios de autenticación
-│   │   ├── productService.ts # Servicios de productos
-│   │   └── ...               # Otros servicios
-│   ├── types/                 # Definiciones de TypeScript
-│   │   ├── index.ts          # Barrel exports
-│   │   ├── product.types.ts  # Tipos de productos
-│   │   ├── user.types.ts     # Tipos de usuario
-│   │   └── ...               # Otros tipos
+│   ├── context/                # Estado global
+│   │   ├── AuthContext.tsx
+│   │   └── CartContext/        # Modularizado: reducer, storage, validations
+│   ├── hooks/                  # Custom hooks (14+)
+│   ├── pages/                  # Páginas y rutas
+│   │   ├── Admin/             # Dashboard, Products, Orders, Analytics
+│   │   ├── Home.tsx
+│   │   ├── ProductsPage.tsx
+│   │   └── ...
+│   ├── services/              # Capa de API (authService, productService, etc.)
+│   ├── types/                 # Definiciones TypeScript
 │   ├── utils/                 # Funciones utilitarias
 │   ├── test/                  # Configuración de testing
-│   ├── App.tsx               # Componente raíz con routing
-│   ├── main.tsx              # Entry point
-│   └── index.css             # Estilos globales
-├── .env.example              # Template de variables de entorno
-├── .gitignore               # Archivos ignorados por Git
-├── index.html               # HTML principal
-├── package.json             # Dependencias y scripts
-├── tsconfig.json            # Configuración de TypeScript
-├── vite.config.ts           # Configuración de Vite
-└── vitest.config.ts         # Configuración de Vitest
+│   ├── App.tsx                # Componente raíz con routing
+│   └── main.tsx               # Entry point
+├── .env.example               # Template de variables de entorno
+├── index.html
+├── package.json
+├── tsconfig.json
+├── tailwind.config.js
+├── vite.config.ts
+└── vitest.config.ts
 ```
 
-### Arquitectura
+---
 
-El proyecto sigue una **arquitectura por capas** con separación clara de responsabilidades:
+## 🏗️ Arquitectura
 
-- **Capa de Presentación**: Componentes React organizados por dominio
-- **Capa de Estado**: Context API con reducers + React Query para server state
-- **Capa de Servicios**: Abstracciones de API con Axios
-- **Capa de Hooks**: Lógica reutilizable encapsulada
-- **Capa de Tipos**: TypeScript strict para type safety
+Arquitectura **en capas** con separación estricta de responsabilidades:
 
-### Principios Aplicados
+- **Presentación** — componentes organizados por dominio
+- **Estado** — Context API + `useReducer` (global) y React Query (server state)
+- **Servicios** — abstracciones de API con Axios
+- **Hooks** — lógica reutilizable encapsulada
+- **Tipos** — TypeScript strict por dominio
 
-- ✅ **SOLID** - Single Responsibility, Open/Closed, Dependency Inversion
-- ✅ **DRY** - Don't Repeat Yourself
-- ✅ **Separation of Concerns** - Componentes, lógica y datos separados
-- ✅ **TypeScript Strict Mode** - Type safety completo
+### Patrones aplicados
+- ✅ **Context + Reducer Pattern** — para estado global
+- ✅ **Custom Hooks Pattern** — encapsulación de lógica
+- ✅ **Service Layer Pattern** — abstracciones de API
+- ✅ **Protected Routes** — control de acceso por roles
+- ✅ **Compound Components** — descomposición de componentes complejos
 
-### Patrones de Diseño
-
-- **Context + Reducer Pattern** - Para estado global (Auth, Cart)
-- **Custom Hooks Pattern** - Encapsulación de lógica reutilizable
-- **Service Layer Pattern** - Abstracciones de API
-- **Compound Components** - Componentes complejos descompuestos
-- **Protected Routes** - Control de acceso por roles
-
-### Convenciones de Código
-
-- **Componentes**: PascalCase (`ProductCard.tsx`)
-- **Hooks**: camelCase con prefijo `use` (`useProductFilters.ts`)
-- **Services**: camelCase (`authService.ts`)
-- **Tipos**: PascalCase (`User`, `Product`)
-- **Constantes**: UPPER_SNAKE_CASE (`API_BASE_URL`)
-
-### State Management
-
+### State management
 ```
 ┌─────────────────────────┐
-│  Local State (useState) │ → UI state, formularios
+│  Local State (useState) │ → UI, formularios
 ├─────────────────────────┤
-│  Context API            │ → Auth, Cart (estado global)
+│  Context API            │ → Auth, Cart
 ├─────────────────────────┤
 │  React Query            │ → Server state, caching
 ├─────────────────────────┤
@@ -189,60 +176,135 @@ El proyecto sigue una **arquitectura por capas** con separación clara de respon
 └─────────────────────────┘
 ```
 
+---
+
+## 📦 Requisitos Previos
+
+- **Node.js** ≥ 18
+- **npm** ≥ 9 (o pnpm / yarn)
+- Backend corriendo en local (ver [repositorio del backend](https://github.com/AngelSpinazzola/hardware-store-backend-api))
+- **Google OAuth Client ID** — [Google Cloud Console](https://console.cloud.google.com/apis/credentials)
+
+---
+
+## 🔧 Instalación
+
+```bash
+# Clonar el repositorio
+git clone https://github.com/AngelSpinazzola/hardware-store-frontend.git
+cd hardware-store-frontend
+
+# Instalar dependencias
+npm install
+
+# Configurar variables de entorno
+cp .env.example .env.local
+# Editar .env.local con tus valores
+
+# Levantar el servidor de desarrollo
+npm run dev
+```
+
+La app estará disponible en [http://localhost:5173](http://localhost:5173).
+
+---
+
+## ⚙️ Configuración
+
+Copiar `.env.example` a `.env.local` y completar:
+
+```env
+# URL base de la API del backend
+VITE_API_BASE_URL=http://localhost:10000/api
+
+# Google OAuth Client ID
+# Obtener en: https://console.cloud.google.com/apis/credentials
+VITE_GOOGLE_CLIENT_ID=your-google-client-id.apps.googleusercontent.com
+```
+
+---
+
+## 📜 Scripts Disponibles
+
+```bash
+npm run dev           # Servidor de desarrollo (http://localhost:5173)
+npm run dev:local     # Servidor de desarrollo con modo development explícito
+npm run build         # Build de producción
+npm run build:local   # Build en modo development
+npm run preview       # Preview del build
+npm run lint          # Linter (ESLint)
+npm run test          # Ejecutar tests
+npm run test:watch    # Tests en modo watch
+npm run test:ui       # UI interactiva de Vitest
+npm run test:coverage # Reporte de cobertura
+```
+
+---
+
 ## 🧪 Testing
 
 ```bash
 # Ejecutar todos los tests
 npm run test
 
-# Ejecutar tests con UI interactiva
+# Modo watch
+npm run test:watch
+
+# UI interactiva
 npm run test:ui
 
-# Generar reporte de cobertura
+# Cobertura
 npm run test:coverage
-
-# Ejecutar tests en modo watch
-npm run test -- --watch
-
-# Ejecutar un test específico
-npm run test -- ProductCard.test.tsx
 ```
 
-### Estructura de Tests
-
+Estructura de tests:
 ```
 src/
 ├── components/
 │   └── Common/
 │       └── QuantitySelector.test.tsx
 └── test/
-    ├── setup.ts              # Configuración global de tests
-    └── vitest.d.ts           # Tipos de Vitest
+    ├── setup.ts
+    └── vitest.d.ts
 ```
 
-## 📝 Optimizaciones Aplicadas
+---
+
+## ⚡ Optimizaciones
 
 ### Performance
-- ✅ **Code Splitting** - Chunks manuales por vendor, router, UI
-- ✅ **Lazy Loading** - Componentes y rutas cargados bajo demanda
-- ✅ **Image Optimization** - WebP format, compresión automática client-side
-- ✅ **React Query** - Para guardado en cache
-- ✅ **Debouncing** - En filtros y búsqueda (300ms)
-- ✅ **Memoization** - `useMemo` y `useCallback` en operaciones costosas
+- ✅ **Code splitting** manual por chunks (vendor, router, UI, charts, utils)
+- ✅ **Lazy loading** de componentes y rutas
+- ✅ **Image optimization** — WebP + compresión client-side
+- ✅ **React Query** — caching inteligente de datos del servidor
+- ✅ **Debouncing** en filtros y búsqueda (300ms)
+- ✅ **Memoization** — `useMemo` y `useCallback` en operaciones costosas
 
-### SEO y Accesibilidad
-- ✅ **Meta tags** - Título y descripción dinámicos
-- ✅ **Semantic HTML** - Uso correcto de etiquetas semánticas
-- ✅ **ARIA labels** - Para componentes interactivos
-- ✅ **Keyboard navigation** - Soporte completo de teclado
+### SEO y accesibilidad
+- ✅ Meta tags dinámicos
+- ✅ HTML semántico
+- ✅ ARIA labels en componentes interactivos
+- ✅ Keyboard navigation
 
-### Seguridad
-- ✅ **JWT Authentication** - Tokens de autenticación con expiración automática
-- ✅ **Google OAuth 2.0** - Autenticación segura mediante Google
-- ✅ **Protected Routes** - Control de acceso basado en roles (admin/user)
-- ✅ **XSS Protection** - Sanitización de inputs del usuario
-- ✅ **Secure Payment Flow** - Integración segura con MercadoPago API
-- ✅ **HTTPS Only** - Comunicación encriptada en producción
+---
 
+## 🛡️ Seguridad
 
-⭐️ Si este proyecto te resultó útil, considera darle una estrella en GitHub
+- ✅ **JWT Authentication** en cookies httpOnly (mitigación XSS)
+- ✅ **Google OAuth 2.0** — flujo seguro con ID tokens
+- ✅ **Protected Routes** — control de acceso por roles
+- ✅ **Input sanitization** — validación de formularios
+- ✅ **HTTPS only** en producción
+- ✅ **Integración segura con MercadoPago** — sin manejo directo de datos sensibles
+
+---
+
+## 👤 Autor
+
+**Angel Spinazzola**
+
+- GitHub: [@AngelSpinazzola](https://github.com/AngelSpinazzola)
+
+---
+
+⭐️ Si este proyecto te resultó útil, considera darle una estrella en GitHub.
