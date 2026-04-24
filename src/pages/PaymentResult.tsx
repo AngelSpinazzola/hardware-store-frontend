@@ -78,12 +78,29 @@ const PaymentResult = ({ defaultStatus }: PaymentResultProps) => {
             }
         };
 
-        fetchOrderDetail();
+        const syncAndFetch = async (): Promise<void> => {
+            // Fallback de reconciliación: si tenemos paymentId, forzamos al backend
+            // a sincronizar contra MP antes del primer fetch. Así el estado queda
+            // actualizado aunque el webhook haya fallado.
+            if (paymentId) {
+                try {
+                    await orderService.syncMercadoPagoPayment(paymentId);
+                } catch (error) {
+                    console.error('Sync falló, se continúa con el polling del webhook:', error);
+                }
+            }
+
+            if (!cancelled) {
+                fetchOrderDetail();
+            }
+        };
+
+        syncAndFetch();
 
         return () => {
             cancelled = true;
         };
-    }, [orderId]);
+    }, [orderId, paymentId]);
 
     const getStatusConfig = () => {
         switch (status) {

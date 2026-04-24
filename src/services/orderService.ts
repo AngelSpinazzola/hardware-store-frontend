@@ -426,6 +426,17 @@ class OrderService {
   canPayWithMercadoPago(status: OrderStatus): boolean {
     return status === 'pending_payment' || status === 'payment_rejected';
   }
+
+  // Fallback de reconciliación: fuerza al backend a sincronizar el estado
+  // del pago contra MercadoPago. Útil cuando el webhook no llega o se atrasa.
+  async syncMercadoPagoPayment(paymentId: string): Promise<void> {
+    try {
+      await api.post(`/Payment/mercadopago/sync/${paymentId}`);
+    } catch (error) {
+      console.error('Error syncing MercadoPago payment:', error);
+      throw this.handleError(error);
+    }
+  }
 }
 
 export const orderService = new OrderService();
