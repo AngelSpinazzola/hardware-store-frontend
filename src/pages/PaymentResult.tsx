@@ -1,6 +1,8 @@
+import { useEffect, useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import NavBar from '../components/Common/NavBar';
 import { Footer } from '../components/Common/Footer';
+import { orderService } from '../services/orderService';
 
 type PaymentStatus = 'success' | 'approved' | 'pending' | 'failure' | 'rejected';
 
@@ -8,11 +10,80 @@ interface PaymentResultProps {
     defaultStatus: PaymentStatus;
 }
 
+const STATUS_DETAIL_MESSAGES: Record<string, string> = {
+    // Rechazos comunes
+    cc_rejected_insufficient_amount: 'Tu tarjeta no tiene fondos suficientes para completar el pago.',
+    cc_rejected_bad_filled_card_number: 'El número de tarjeta es incorrecto. Por favor, verificalo e intentá de nuevo.',
+    cc_rejected_bad_filled_date: 'La fecha de vencimiento es incorrecta.',
+    cc_rejected_bad_filled_security_code: 'El código de seguridad (CVV) es incorrecto.',
+    cc_rejected_bad_filled_other: 'Revisá los datos de la tarjeta. Alguno es incorrecto.',
+    cc_rejected_call_for_authorize: 'Debés autorizar el pago con tu banco antes de continuar.',
+    cc_rejected_card_disabled: 'Tu tarjeta está deshabilitada. Comunicate con tu banco.',
+    cc_rejected_card_error: 'No pudimos procesar el pago. Intentá con otra tarjeta.',
+    cc_rejected_duplicated_payment: 'Ya realizaste un pago por este monto. Si querés volver a pagar, usá otra tarjeta u otro medio de pago.',
+    cc_rejected_high_risk: 'El pago fue rechazado por motivos de seguridad. Probá con otro medio de pago.',
+    cc_rejected_max_attempts: 'Alcanzaste el límite de intentos permitidos. Probá con otra tarjeta.',
+    cc_rejected_invalid_installments: 'La cantidad de cuotas seleccionadas no es válida para esta tarjeta.',
+    cc_rejected_blacklist: 'No pudimos procesar el pago. Probá con otro medio de pago.',
+    cc_rejected_other_reason: 'El banco rechazó el pago. Contactate con tu banco o usá otra tarjeta.',
+    cc_rejected_by_bank: 'Tu banco rechazó el pago. Contactate con ellos para más información.',
+    cc_rejected_card_type_not_allowed: 'El tipo de tarjeta no es aceptado. Probá con otro medio de pago.',
+
+    // Pendientes
+    pending_contingency: 'Estamos procesando tu pago. Te avisaremos por email cuando se confirme.',
+    pending_review_manual: 'Tu pago está en revisión manual. Te avisaremos cuando tengamos novedades.',
+    pending_waiting_payment: 'Estamos esperando la confirmación del pago.',
+    pending_capture: 'Tu pago está pendiente de captura.',
+
+    // Aprobados
+    accredited: 'Tu pago fue aprobado y acreditado correctamente.',
+    partially_refunded: 'Tu pago fue parcialmente reembolsado.',
+};
+
 const PaymentResult = ({ defaultStatus }: PaymentResultProps) => {
     const [searchParams] = useSearchParams();
     const orderId = searchParams.get('external_reference');
     const paymentId = searchParams.get('payment_id');
     const status = (searchParams.get('status') || defaultStatus) as PaymentStatus;
+
+    const [statusDetail, setStatusDetail] = useState<string | null>(null);
+
+    useEffect(() => {
+        if (!orderId) return;
+
+        let cancelled = false;
+        let attempts = 0;
+        const maxAttempts = 4;
+        const delayMs = 2000;
+
+        const fetchOrderDetail = async (): Promise<void> => {
+            try {
+                const order = await orderService.getOrderById(Number(orderId));
+
+                if (cancelled) return;
+
+                if (order.mercadoPagoStatusDetail) {
+                    setStatusDetail(order.mercadoPagoStatusDetail);
+                    return;
+                }
+
+                // Race condition: el webhook puede no haber llegado aún.
+                // Reintentamos un par de veces antes de rendirnos.
+                attempts += 1;
+                if (attempts < maxAttempts) {
+                    setTimeout(fetchOrderDetail, delayMs);
+                }
+            } catch (error) {
+                console.error('Error obteniendo detalle del pago:', error);
+            }
+        };
+
+        fetchOrderDetail();
+
+        return () => {
+            cancelled = true;
+        };
+    }, [orderId]);
 
     const getStatusConfig = () => {
         switch (status) {
@@ -70,6 +141,8 @@ const PaymentResult = ({ defaultStatus }: PaymentResultProps) => {
     };
 
     const config = getStatusConfig();
+    const detailMessage = statusDetail ? STATUS_DETAIL_MESSAGES[statusDetail] : null;
+    const displayMessage = detailMessage ?? config.message;
 
     return (
         <div className="min-h-screen bg-white pt-16">
@@ -86,7 +159,7 @@ const PaymentResult = ({ defaultStatus }: PaymentResultProps) => {
                     </h1>
 
                     <p className="font-poppins text-base text-gray-600 mb-6 max-w-md mx-auto">
-                        {config.message}
+                        {displayMessage}
                     </p>
 
                     {orderId && (
