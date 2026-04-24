@@ -9,32 +9,20 @@ const SecondaryNavBar = () => {
                 <div className="flex items-center justify-center space-x-8 py-3">
 
                     {/* Categorías Dropdown */}
-                    <Link
-                        to="/products"
-                        className="flex items-center space-x-1 px-4 py-2 text-gray-700 hover:text-nova-cyan font-medium transition-colors"
-                    >
+                    <Link to="/products" className="nav-link-slide flex items-center space-x-1 px-4 py-2 font-medium">
                         <span>Productos</span>
                     </Link>
 
                     {/* Links directos */}
-                    <Link
-                        to="/products?category=Placas%20de%20video"
-                        className="px-4 py-2 text-gray-700 hover:text-nova-cyan font-semibold transition-colors"
-                    >
+                    <Link to="/products?category=Placas%20de%20video" className="nav-link-slide px-4 py-2 font-semibold">
                         Placas de Video
                     </Link>
 
-                    <Link
-                        to="/products?category=Monitores"
-                        className="px-4 py-2 text-gray-700 hover:text-nova-cyan font-semibold transition-colors"
-                    >
+                    <Link to="/products?category=Monitores" className="nav-link-slide px-4 py-2 font-semibold">
                         Monitores
                     </Link>
 
-                    <Link
-                        to="/products?offers=true"
-                        className="px-4 py-2 text-gray-700 hover:text-nova-cyan font-semibold transition-colors"
-                    >
+                    <Link to="/products?offers=true" className="nav-link-slide px-4 py-2 font-semibold">
                         Ofertas
                     </Link>
                 </div>
