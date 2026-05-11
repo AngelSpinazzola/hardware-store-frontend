@@ -59,7 +59,7 @@ const ProductDetail = () => {
     }
 
     if (error || !product) {
-        return <ProductNotFound error={error || 'Producto no encontrado'} />;
+        return <ProductNotFound />;
     }
 
     return (
